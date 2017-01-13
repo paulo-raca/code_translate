@@ -17,6 +17,12 @@ def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]
 
+def translation_fixup(ttype, original, translated):
+    if ttype == token.Comment.Multiline and original.startswith('/*') and original.endswith('*/'):
+        translated = re.sub(r'^/ \*', '/*', translated)
+        translated = re.sub(r'\* /$', '*/', translated)
+    return translated
+
 @simplefilter
 def translate_filter(self, lexer, stream, options):
     def filter_ttype(ttype, value):
@@ -52,7 +58,7 @@ def translate_filter(self, lexer, stream, options):
         ).execute()['translations']
     for x, translation in zip(filtered_tokens, translations):
         translation
-        x[1] = translation['translatedText']
+        x[1] = translation_fixup(x[0], x[1], translation['translatedText'])
 
 
 
