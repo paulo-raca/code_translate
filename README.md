@@ -35,5 +35,5 @@ optional arguments:
 # Example
 
 ```
-code_translate.py --google-api-key=xxx --replace --src=zh --dest=en --syntax=java --regex="\\p{IsHan} ChineseCode.java"
+code_translate.py --google-api-key=xxx --replace --src=zh --dest=en --syntax=java --regex="\\p{IsHan}" ChineseCode.java
 ```
